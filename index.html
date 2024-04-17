@@ -3,134 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Primeiro Site</title>
+    <title>Exemplo HTML Semântico</title>
     <link rel="stylesheet" href="css/estilo.css">
-    <style>
-        body{background-color: aquamarine;}
-        
-        li{ list-style:square;}
-        table { border-collapse: collapse;}
-        td {text-align: center;}
-        body { margin: auto;
-  width: 80%;}
-    
-    </style>
+    <link rel="stylesheet" href="css/reset.css">
 </head>
 <body>
-    <h1 >Desenvolvimento Web</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur repudiandae consectetur quis quas neque, architecto voluptatibus nesciunt suscipit expedita dolor exercitationem omnis consequatur quisquam iure minus laboriosam eos, beatae earum.</p>
-    <h2>O que é HTML?</h2>
-    <p>
-        teste
-    </p>
+    <header class="cabecalho">
+        <div class="logo">
+            <p>LOGOTIPO</p>
+        </div>
+        <nav>
+            <p>Aqui vai o menu</p>
+        </nav>
+    </header>
+    <main>
+        <section>Primeira Sessão</section>
+        <section>Segunda Sessão</section>
+        <section>Terceira Sessão</section>
+    </main>
+    <footer class="rodape">
+        <p>Rodapé da Página</p>
+    </footer>
     
-    <p>
-        HTML é a linguagem de marcação padrão para a criação de páginas da Web.
-    </p>
-      <ul>
-        <li>HTML significa linguagem de marcação de hipertexto</li>
-        <li>HTML é a linguagem de marcação padrão para criação de páginas da Web</li>
-        <li>HTML descreve a estrutura de uma página da Web</li>
-        <li>HTML consiste em uma série de elementos</li>
-        <li>Os elementos HTML informam ao navegador como exibir o conteúdo</li>
-        <li>Os elementos HTML rotulam partes do conteúdo como “este é um título”, “este é um parágrafo”, “este é um link”, etc.</li>
-      </ul>
-      <img src="img/estrutura.png" alt="Estrutura Básica do HTML" width="500" height="333">
-  <h2>O que é CSS</h2>
-    <p>
-        CSS é a linguagem que usamos para estilizar uma página da Web.
-    </p>
-    <ul>
-        <li>CSS significa Folhas de Estilo em Cascata</li>
-        <li>CSS descreve como os elementos HTML devem ser exibidos na tela, no papel ou em outras mídias</li>
-        <li>CSS economiza muito trabalho. Ele pode controlar o layout de várias páginas da web de uma só vez</li>
-        <li>Folhas de estilo externas são armazenadas em arquivos CSS</li>
-    </ul>
-    <img src="img/estruturacss.png" alt="Estrutura Básica do CSS" width="500" height="333">
-
-    <h2>O que é JS</h2>
-    <p>JavaScript é uma linguagem de programação de alto nível criada, a princípio, para ser executada em navegadores e manipular comportamentos de páginas web.</p>
-    <ul>
-<li>Versatilidade da linguagem;</li>
-<li>Rapidez de leitura e, portanto, rapidez de execução;</li>
-<li>Sintaxe acessível;</li>
-<li>Não precisa ser compilada — ou seja, os navegadores são capazes de interpretá-la por conta própria;</li>
-<li>Ótima linguagem para iniciantes em programação;</li>
-<li>Compatível com uma grande variedade de navegadores e plataformas;</li>
-<li>Código leve;</li>
-<li>Curva de aprendizagem rápida;</li>
-<li>Grande comunidade ao redor do mundo.</li>
-    </ul>
-    <img src="img/estruturajava.png" alt="Estrutura Básica do Javascript" width="500" height="333">
-<table border="1">
-    <tr style="color: red;">
-        <th>HORA</th>
-        <th>MIN</th>
-        <th>VALOR</th>
-        <th>TOTAL</th>
-        <th>ANO</th>
-    </tr>
-        <td>15</td>
-        <td>45</td>
-        <td>25</td>
-        <td>669,37</td>
-        <td>2021</td>
-    <tr>
-        <td>15</td>
-        <td>45</td>
-        <td style="background-color: red; color: green;">100</td>
-        <td>2677,50</td>
-        <td>2022</td>
-    </tr>
-   
-    <tr>
-        <td>20</td>
-        <td>0</td>
-        <td>25</td>
-        <td>850,00</td>
-        <td>2023</td>
-    </tr>
-    </table>
-<table border="1">
-    <tr style="color: red;">
-        <th>ATRIBUTO</th>
-        <th>DESCRIÇÃO</th>
-        <th>EXEMPLO</th>
-    </tr>
-    <tr>
-        <td>p</td>
-        <td>Um parágrafo sempre começa em uma nova linha e os navegadores adicionam automaticamente <br> algum espaço em branco (uma margem) antes e depois de um parágrafo.</td>
-        <td>&lt;<code>p</code>&gt; Isso é um parágrafo &lt;<code>/p</code>&gt;</td>
-    </tr>
-    <tr>
-        <td>ul</td>
-        <td>Lista HTML não ordenada
-            Uma lista não ordenada começa com a &lt;<code>ul</code>&gt; tag. Cada item da lista começa com a &lt;li&gt;tag.
-            
-            <br>Os itens da lista serão marcados com marcadores (pequenos círculos pretos) por padrão.
-        </td>
-        <td>
-            &lt;<code>ul</code>&gt; <pre>
-                   &lt;<code>li</code>&gt;Café&lt;<code>/li</code>&gt;
-                   &lt;<code>li</code>&gt;Chá&lt;<code>/li</code>&gt; 
-                   &lt;<code>li</code>&gt;Leite&lt;<code>/li</code>&gt; </pre>
-            &lt;<code>/ul</code>&gt; 
-        </td>
-    </tr>
-    <tr>
-        <td>h1</td>
-        <td>elemento que define um título grande</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>img</td>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-
-
-<a href="outro.html">outra pagina</a>
-
 </body>
 </html>
