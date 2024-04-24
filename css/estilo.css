@@ -4,7 +4,7 @@ body{
 }
 header{
     background-color: rgb(77, 139, 195);
-    padding: 3%;
+    
 }
 /* Classe atribuída para a div que vai receber o logotipo */
 .logo{
@@ -24,7 +24,7 @@ section{
 }
 footer{
     background-color: rgb(112,48,160);
-    padding: 3%;
+    
 }
 .cabecalho{
     padding: 3%;
@@ -32,3 +32,8 @@ footer{
 .rodape{
     padding: 3%;
 }
+
+div {
+    text-align: center;
+  }
+
