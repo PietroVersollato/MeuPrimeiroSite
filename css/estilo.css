@@ -36,4 +36,7 @@ footer{
 div {
     text-align: center;
   }
+h1, h2{
+    line-height: 3%;
+}
 
