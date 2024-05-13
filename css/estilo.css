@@ -24,7 +24,6 @@ section{
 }
 footer{
     background-color: rgb(112,48,160);
-    
 }
 .cabecalho{
     padding: 3%;
@@ -36,7 +35,10 @@ footer{
 div {
     text-align: center;
   }
-h1, h2{
+h1,h2{
     line-height: 3%;
 }
 
+p {
+    line-height: 3%;
+}
