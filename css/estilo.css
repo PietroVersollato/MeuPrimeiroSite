@@ -1,6 +1,14 @@
+body{
+    background-image: url(../img/Dino.jpg);
+    background-size:contain; 
+    background-position: center;
+    background-repeat: no-repeat; 
+    }
+
 nav{
     text-align: center;
 }
+
 main{
     
     width:80%;
@@ -12,7 +20,7 @@ main{
     padding: 3%;
 }
 .rodape{
-    padding: 12%;
+    padding: 3%;
 }
 
 div {
@@ -20,8 +28,25 @@ div {
   }
 .titulo{
     text-align: center;
+    color: white;
 }
 
-h3{
+h1,h2{
+    line-height: 3%;
     text-align: center;
+    color: white;
+}
+
+p{
+    line-height: 1.5;
+    color: white;
+}
+
+ul li{
+    line-height: 1.5;
+}
+
+.logo img {
+    width: 30%;
+    height: auto;
 }
