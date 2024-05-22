@@ -1,52 +1,79 @@
-body{
-    background-image: url(../img/Dino.jpg);
-    background-size:contain; 
-    background-position: center;
-    background-repeat: no-repeat; 
-    }
-
-nav{
-    text-align: center;
+body {
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-image: url(../img/Background.jpg);
+  background-position: center;
+  background-repeat: repeat; 
+  color: white;
+  font-family: "Lilita One", sans-serif;
+  font-size: 18px; 
+  zoom: 1.2; 
 }
-
-main{
-    
-    width:80%;
-    margin-left: auto;
-    margin-right: auto;
+.cabecalho {
+background: #333;
+color: #fff;
+padding: 10px 0;
 }
-
-.cabecalho{
-    padding: 3%;
+.cabecalho .logo img {
+width: 50px;
+height: 50px;
 }
-.rodape{
-    padding: 3%;
+.cabecalho .logo {
+display: flex;
+align-items: center;
+justify-content: center;
 }
-
-div {
-    text-align: center;
-  }
-.titulo{
-    text-align: center;
-    color: white;
+.cabecalho .logo p {
+margin: 0 10px;
 }
-
-h1,h2{
-    line-height: 3%;
-    text-align: center;
-    color: white;
+nav ul {
+display: flex;
+justify-content: center;
+list-style: none;
+padding: 0;
 }
-
-p{
-    line-height: 1.5;
-    color: white;
+nav {
+  margin: 0 15px;
 }
-
+nav a {
+color: #fff;
+text-decoration: none;
+font-size: 16px;
+}
+nav {
+text-decoration: underline;
+}
+.titulo {
+text-align: center;
+margin-top: 20px;
+}
+main {
+padding: 20px;
+}
+section img {
+display: block;
+margin: 0 auto;
+}
+.rodape {
+  background: rgba(0, 0, 0, 0.8); 
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-size: 32px;
+  text-align: center;
+}
+p {
+  font-size: 16px; 
+  text-align: center;
+}
 ul li{
-    line-height: 1.5;
+  background-color: black;
 }
-
-.logo img {
-    width: 30%;
-    height: auto;
+section{
+  background: rgba(0, 0, 0, 0.8); 
+  text-align: center;
 }
