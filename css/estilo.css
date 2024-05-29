@@ -7,45 +7,47 @@ body {
   background-repeat: repeat; 
   color: white;
   font-family: "Roboto Slab", serif;
-  font-size: 18px;
+  font-size: 19px;
 }
 .cabecalho {
-background: #333;
-color: #fff;
-padding: 10px 0;
-font-size: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #333;
+  padding: 10px 20px;
+  position: ;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
 }
-.cabecalho .logo img {
+.logo img {
 width: 120px;
 height: 120px;
 }
-.cabecalho .logo {
+.logo {
 display: flex;
 align-items: center;
 justify-content: center;
 }
-.cabecalho .logo p {
-margin: 0 10px;
-}
 nav ul {
-display: flex;
-justify-content: center;
-list-style: none;
-padding: 0;
-line-height: 1.4em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
 }
-nav {
-  margin: 0 15px;
-  line-height: 1.4em;
+nav ul li {
+  margin: 0 10px;
 }
-nav a {
-color: #fff;
-text-decoration: none;
-font-size: 16px;
-line-height: 1.4em;
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
 }
-nav {
-text-decoration: underline;
+nav ul li a:hover {
+  background-color: #555;
+  border-radius: 5px;
 }
 .titulo {
 text-align: center;
@@ -118,3 +120,51 @@ figcaption{
   text-align: center;
   color: gold;
 }
+.menu-icon {
+  display: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+#menu-toggle {
+  display: none;
+}
+@media (max-width: 768px) {
+  .menu-icon {
+      display: block;
+      padding-right: 10px;
+  }
+
+nav ul {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #000;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      z-index: 1000;
+      padding: 0;
+  }
+
+#menu-toggle:checked + .menu-icon + ul {
+      display: flex;
+  }
+
+nav ul li {
+      text-align: center;
+      margin: 0;
+  }
+
+nav ul li a {
+      padding: 15px 0;
+  }
+  
+nav ul li label {
+      width: 100%;
+      display: block;
+  }
+}
+
+
