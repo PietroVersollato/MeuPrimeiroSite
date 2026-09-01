@@ -1,14 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Outra pagina</title>
+    <title>Página Extra | Jurassic Saga</title>
+    <link rel="shortcut icon" href="img/Favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Outfit:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/estilo.css">
 </head>
+
 <body>
-    <h1>TITULO DA OUTRA PAGINA</h1>
-    <P>UM PARAGRAFO QUALQUER </P>
-    <a href="index.html">inicio</a>
+    <header class="cabecalho">
+        <div class="nav-container">
+            <a href="index.html#inicio" class="logo">
+                <img src="img/logo.png" alt="Logotipo Jurassic Saga">
+                <div class="logo-text">
+                    <span class="logo-title">Jurassic Saga</span>
+                    <span class="logo-subtitle">Mundo dos Dinossauros</span>
+                </div>
+            </a>
+            <nav id="menu">
+                <ul>
+                    <li><a href="index.html#inicio"><i class="fa-solid fa-arrow-left"></i> Voltar ao Início</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" style="padding-top: 140px; min-height: 80vh; text-align: center;">
+        <div class="stat-card" style="max-width: 600px; margin: 40px auto; padding: 40px 20px;">
+            <i class="fa-solid fa-paw" style="font-size: 3rem; color: var(--amber-glow); margin-bottom: 20px;"></i>
+            <h1 class="hero-title" style="font-size: 2rem; margin-bottom: 16px;">Página Adicional</h1>
+            <p style="color: var(--text-muted); margin-bottom: 30px;">
+                Esta é uma página complementar do portal dos dinossauros. Todo o conteúdo principal, linha do tempo dos 6 filmes, guia com espécies filtráveis e quiz interativo estão disponíveis na página principal.
+            </p>
+            <a href="index.html" class="btn btn-primary"><i class="fa-solid fa-house"></i> Ir para o Portal Principal</a>
+        </div>
+    </main>
+
+    <footer class="rodape">
+        <div class="container" style="text-align: center;">
+            <p>&copy; 2026 Jurassic Saga &bull; Desenvolvido para fãs de dinossauros e ciência.</p>
+        </div>
+    </footer>
 </body>
+
 </html>
