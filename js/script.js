@@ -30,26 +30,61 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileBtn = document.getElementById('mobileMenuBtn');
   const navMenu = document.getElementById('menu');
 
+  function closeMobileMenu() {
+    if (navMenu && navMenu.classList.contains('menu-open')) {
+      navMenu.classList.remove('menu-open');
+      if (mobileBtn) {
+        mobileBtn.setAttribute('aria-expanded', 'false');
+        const icon = mobileBtn.querySelector('i');
+        if (icon) icon.className = 'fa-solid fa-bars';
+      }
+    }
+  }
+
+  function openMobileMenu() {
+    if (navMenu) {
+      navMenu.classList.add('menu-open');
+      if (mobileBtn) {
+        mobileBtn.setAttribute('aria-expanded', 'true');
+        const icon = mobileBtn.querySelector('i');
+        if (icon) icon.className = 'fa-solid fa-xmark';
+      }
+    }
+  }
+
   if (mobileBtn && navMenu) {
-    mobileBtn.addEventListener('click', () => {
-      navMenu.classList.toggle('menu-open');
-      const icon = mobileBtn.querySelector('i');
-      if (icon) {
-        if (navMenu.classList.contains('menu-open')) {
-          icon.className = 'fa-solid fa-xmark';
-        } else {
-          icon.className = 'fa-solid fa-bars';
-        }
+    mobileBtn.setAttribute('aria-expanded', 'false');
+
+    mobileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (navMenu.classList.contains('menu-open')) {
+        closeMobileMenu();
+      } else {
+        openMobileMenu();
       }
     });
 
     // Fechar menu mobile ao clicar em um link
     navMenu.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        navMenu.classList.remove('menu-open');
-        const icon = mobileBtn.querySelector('i');
-        if (icon) icon.className = 'fa-solid fa-bars';
+        closeMobileMenu();
       });
+    });
+
+    // Fechar menu mobile ao clicar fora dele
+    document.addEventListener('click', (e) => {
+      if (navMenu.classList.contains('menu-open') && 
+          !navMenu.contains(e.target) && 
+          !mobileBtn.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
+    // Fechar ao pressionar ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileMenu();
+      }
     });
   }
 
@@ -182,6 +217,18 @@ document.addEventListener('DOMContentLoaded', () => {
       options: ["Apenas leões e tigres", "Mistura de sons de elefantes, tigres e jacarés", "Som gerado 100% por computador", "Gritos de aves marinhas"],
       answer: 1,
       explanation: "Gary Rydstrom mixou o choro de filhote de elefante com o rugido de tigre e o sibilo de jacaré para compor o clássico rugido do T-Rex."
+    },
+    {
+      question: "No filme recente Jurassic World: Renascimento (2025), qual é a missão confidencial da equipe de Zora Bennett?",
+      options: ["Criar uma colônia humana na Ilha Sorna", "Extrair material genético dos três maiores dinossauros sobreviventes", "Construir um resort na Antártica", "Exterminar predadores híbridos fugitivos"],
+      answer: 1,
+      explanation: "Em Jurassic World: Renascimento (2025), a equipe deve obter DNA dos três maiores animais sobreviventes na terra, no mar e no ar para salvar milhões de vidas com um medicamento milagroso."
+    },
+    {
+      question: "Qual dinossauro herbívoro bizarro do Cretáceo possuía as maiores garras já registradas na história fóssil (até 1 metro)?",
+      options: ["Triceratops", "Therizinosaurus", "Ankylosaurus", "Stegosaurus"],
+      answer: 1,
+      explanation: "O Therizinosaurus cheloniformis possuía garras frontais em forma de foice de até 1 metro de comprimento para colheita vegetal e defesa implacável."
     }
   ];
 
@@ -274,10 +321,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resultScoreEl.innerHTML = `Você acertou <strong>${score}</strong> de <strong>${quizData.length}</strong> perguntas!`;
 
-    if (score === 5) {
+    if (score >= 6) {
       resultBadgeEl.textContent = '🏆🦖';
       resultTitleEl.textContent = 'Mestre Paleontólogo de Jurassic World!';
-    } else if (score >= 3) {
+    } else if (score >= 4) {
       resultBadgeEl.textContent = '🌿🦕';
       resultTitleEl.textContent = 'Especialista em Dinossauros!';
     } else {
@@ -294,8 +341,210 @@ document.addEventListener('DOMContentLoaded', () => {
     loadQuestion();
   });
 
-  // Iniciar primeira pergunta do quiz
-  if (quizQuestionEl) {
-    loadQuestion();
+  // 8. Enciclopédia Paleontológica ao Vivo (Integração com API em Português)
+  const DINO_API_PRESETS = [
+    { label: "T-Rex", query: "Tiranossauro", icon: "fa-skull" },
+    { label: "Velociraptor", query: "Velociraptor", icon: "fa-paw" },
+    { label: "Espinossauro", query: "Espinossauro", icon: "fa-water" },
+    { label: "Carnotauro", query: "Carnotauro", icon: "fa-fire" },
+    { label: "Tricerátops", query: "Triceratops", icon: "fa-shield-halved" },
+    { label: "Anquilossauro", query: "Anquilossauro", icon: "fa-shield" },
+    { label: "Braquiossauro", query: "Braquiossauro", icon: "fa-tree" },
+    { label: "Alossauro", query: "Alossauro", icon: "fa-bone" },
+    { label: "Estegossauro", query: "Estegossauro", icon: "fa-leaf" },
+    { label: "Giganotossauro", query: "Giganotossauro", icon: "fa-mountain" },
+    { label: "Mosassauro", query: "Mosassauro", icon: "fa-water" },
+    { label: "Pteranodonte", query: "Pteranodonte", icon: "fa-wind" },
+    { label: "Arqueoptérix", query: "Archaeopteryx", icon: "fa-feather" }
+  ];
+
+  const DINO_NAME_MAP = {
+    "tyrannosaurus": "Tiranossauro",
+    "tyrannosaurus rex": "Tiranossauro",
+    "t-rex": "Tiranossauro",
+    "spinosaurus": "Espinossauro",
+    "spinosaurus aegyptiacus": "Espinossauro",
+    "ankylosaurus": "Anquilossauro",
+    "ankylosaurus magniventris": "Anquilossauro",
+    "stegosaurus": "Estegossauro",
+    "brachiosaurus": "Braquiossauro",
+    "allosaurus": "Alossauro",
+    "allosaurus fragilis": "Alossauro",
+    "carnotaurus": "Carnotauro",
+    "carnotaurus sastrei": "Carnotauro",
+    "giganotosaurus": "Giganotossauro",
+    "giganotosaurus carolini": "Giganotossauro",
+    "mosasaurus": "Mosassauro",
+    "mosasaurus hoffmanni": "Mosassauro",
+    "pteranodon": "Pteranodonte",
+    "diplodocus": "Diplodoco",
+    "iguanodon": "Iguanodonte",
+    "triceratops horridus": "Triceratops",
+    "pachycephalosaurus": "Pachycephalosaurus",
+    "therizinosaurus": "Therizinosaurus",
+    "baryonyx": "Baryonyx",
+    "parasaurolophus": "Parasaurolophus",
+    "archaeopteryx": "Archaeopteryx",
+    "liopleurodon": "Liopleurodon"
+  };
+
+  const apiInput = document.getElementById('apiDinoInput');
+  const apiSearchBtn = document.getElementById('apiSearchBtn');
+  const apiRandomBtn = document.getElementById('apiRandomBtn');
+  const apiPresetsContainer = document.getElementById('apiPresets');
+  const apiResultCard = document.getElementById('apiResultCard');
+
+  // Renderizar atalhos de dinossauros
+  if (apiPresetsContainer) {
+    DINO_API_PRESETS.forEach(item => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'preset-pill';
+      btn.innerHTML = `<i class="fa-solid ${item.icon}"></i> ${item.label}`;
+      btn.addEventListener('click', () => {
+        if (apiInput) apiInput.value = item.label;
+        fetchDinosaurFromAPI(item.query, item.label);
+      });
+      apiPresetsContainer.appendChild(btn);
+    });
+  }
+
+  // Função para consultar API da Wikipedia em Português
+  async function fetchDinosaurFromAPI(query, displayQuery = '') {
+    if (!apiResultCard) return;
+
+    let searchTerm = query.trim();
+    if (!searchTerm) return;
+
+    const cleanTerm = searchTerm.toLowerCase().replace(/[^a-z0-9\s-]/g, '');
+    if (DINO_NAME_MAP[cleanTerm]) {
+      searchTerm = DINO_NAME_MAP[cleanTerm];
+    }
+
+    // Exibir estado de carregamento animado
+    apiResultCard.innerHTML = `
+      <div class="api-loading-state">
+        <div class="api-spinner"></div>
+        <p style="color: var(--amber-glow); font-weight:600;">Consultando API científica em português para "<strong>${displayQuery || query}</strong>"...</p>
+        <span style="font-size:0.85rem; color:var(--text-dim);">Acessando base de dados paleontológicos em tempo real...</span>
+      </div>
+    `;
+
+    try {
+      const endpoint = `https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(searchTerm)}`;
+      const response = await fetch(endpoint);
+
+      if (!response.ok) {
+        throw new Error(`Status ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const title = data.title || displayQuery || query;
+      const extract = data.extract || "Nenhuma descrição detalhada disponível no momento.";
+      const description = data.description || "Espécie paleontológica pré-histórica catalogada";
+      const wikiUrl = data.content_urls?.desktop?.page || `https://pt.wikipedia.org/wiki/${encodeURIComponent(searchTerm)}`;
+      
+      const imageUrl = data.originalimage?.source || data.thumbnail?.source || 'img/Carnivoros.jpg';
+
+      apiResultCard.innerHTML = `
+        <div class="api-result-grid">
+          <div class="api-result-media">
+            <img src="${imageUrl}" alt="Fóssil ou reconstituição de ${title}" loading="lazy">
+          </div>
+          <div class="api-result-info">
+            <span class="api-result-badge"><i class="fa-solid fa-satellite-dish"></i> Dados Oficiais via API em Português</span>
+            <h3 class="api-result-title">${title}</h3>
+            <span class="api-result-subtitle"><i class="fa-solid fa-dna"></i> ${description}</span>
+            <p class="api-result-extract">${extract}</p>
+            <div class="api-result-actions">
+              <a href="${wikiUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                <i class="fa-solid fa-book-open"></i> Ler Artigo Completo na Enciclopédia
+              </a>
+              <button class="btn btn-outline" id="apiShareBtn">
+                <i class="fa-solid fa-share-nodes"></i> Compartilhar Descoberta
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const shareBtn = document.getElementById('apiShareBtn');
+      shareBtn?.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(`${title} no Portal Jurassic Saga: ${wikiUrl}`);
+          shareBtn.innerHTML = '<i class="fa-solid fa-check"></i> Link Copiado!';
+          setTimeout(() => {
+            shareBtn.innerHTML = '<i class="fa-solid fa-share-nodes"></i> Compartilhar Descoberta';
+          }, 2500);
+        }
+      });
+
+    } catch (err) {
+      apiResultCard.innerHTML = `
+        <div class="api-error-state">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 8px;">Espécie não localizada na API</h4>
+          <p style="max-width: 500px; margin: 0 auto 16px; font-size: 0.95rem;">
+            Não encontramos um verbete exato para "<strong>${displayQuery || query}</strong>" na enciclopédia em português.
+          </p>
+          <p style="font-size: 0.88rem; color: var(--amber-glow);">
+            Tente buscar por termos populares como <strong>Tiranossauro</strong>, <strong>Velociraptor</strong>, <strong>Carnotauro</strong> ou <strong>Anquilossauro</strong>.
+          </p>
+        </div>
+      `;
+    }
+  }
+
+  // Eventos de busca
+  apiSearchBtn?.addEventListener('click', () => {
+    if (apiInput && apiInput.value.trim()) {
+      fetchDinosaurFromAPI(apiInput.value.trim());
+    }
+  });
+
+  apiInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (apiInput.value.trim()) {
+        fetchDinosaurFromAPI(apiInput.value.trim());
+      }
+    }
+  });
+
+  apiRandomBtn?.addEventListener('click', () => {
+    const randomItem = DINO_API_PRESETS[Math.floor(Math.random() * DINO_API_PRESETS.length)];
+    if (apiInput) apiInput.value = randomItem.label;
+    fetchDinosaurFromAPI(randomItem.query, randomItem.label);
+  });
+
+  // Conectar os cards de espécies existentes da Seção 2 à API
+  const dinoItems = document.querySelectorAll('.dino-species-item');
+  dinoItems.forEach(item => {
+    const nameEl = item.querySelector('.species-name');
+    if (nameEl) {
+      const hint = document.createElement('span');
+      hint.className = 'api-hint-badge';
+      hint.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> Ver na API';
+      nameEl.appendChild(hint);
+
+      item.addEventListener('click', () => {
+        const rawName = nameEl.textContent.replace('Ver na API', '').replace(/[›»>]/g, '').trim();
+        const firstName = rawName.split(' ')[0];
+        
+        const apiSection = document.getElementById('explorador-api');
+        if (apiSection) {
+          apiSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        if (apiInput) apiInput.value = rawName;
+        fetchDinosaurFromAPI(firstName, rawName);
+      });
+    }
+  });
+
+  // Carregar dinossauro inicial padrão
+  if (apiResultCard) {
+    fetchDinosaurFromAPI('Tiranossauro', 'Tiranossauro Rex');
   }
 });
